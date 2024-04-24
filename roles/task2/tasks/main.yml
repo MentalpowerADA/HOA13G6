@@ -1,0 +1,19 @@
+---
+- name: make sure UfW is installed
+  apt:
+    name: ufw
+    state: present
+
+- name: Curl for Validation
+  apt:
+    name: curl
+    state: present
+
+- name: Deleting the rule that denies ssh access from Server1
+  command: ufw delete deny from 192.168.56.107 to any port ssh
+
+- name: Deleting the rule that denies Workstation access from Server1
+  command: ufw delete deny from 192.168.56.107 to any port 8000
+
+- name: Reload ufw
+  shell: sudo ufw reload
